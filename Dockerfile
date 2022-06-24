@@ -4,7 +4,7 @@ WORKDIR /build
 
 COPY . /build/
 
-RUN make
+RUN COMPUTE=3.7 make  # Max usable version for the k80
 
 FROM nvidia/cuda:11.1.1-runtime
 
@@ -13,4 +13,4 @@ COPY --from=builder /build/compare.ptx /app/
 
 WORKDIR /app
 
-CMD ["./gpu_burn", "60"]
+ENTRYPOINT ["./gpu_burn"]
